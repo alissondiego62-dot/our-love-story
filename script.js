@@ -2,7 +2,7 @@
 /* CONTADOR */
 /* ========================= */
 
-/* 19 de Janeiro de 2026 - Boa Vista RR (UTC-4) */
+/* 19 Janeiro 2026 - Boa Vista (UTC-4) */
 const startDate = new Date("2026-01-19T00:00:00-04:00");
 
 function updateCounter() {
@@ -30,3 +30,37 @@ function updateCounter() {
 
 setInterval(updateCounter, 1000);
 updateCounter();
+
+/* ========================= */
+/* MÚSICA TURBO */
+/* ========================= */
+
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
+
+// Cria toque silencioso para liberar autoplay
+function unlockAutoplay() {
+  const silent = new Audio();
+  silent.src = "data:audio/mp3;base64,//uQxAAAA..."; // mp3 vazio curto (silencioso)
+  silent.play().finally(() => {
+    // Agora podemos tocar a música real
+    music.currentTime = 30;
+    music.play().catch(() => console.log("Música não pode iniciar"));
+  });
+}
+
+// Tenta liberar autoplay assim que a página carrega
+window.addEventListener("load", () => {
+  unlockAutoplay();
+});
+
+// Botão de pausar/tocar
+musicBtn.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    musicBtn.textContent = "⏸ Pausar música";
+  } else {
+    music.pause();
+    musicBtn.textContent = "▶ Tocar música";
+  }
+});
