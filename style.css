@@ -11,11 +11,14 @@ body {
   text-align: center;
 }
 
+/* ========================= */
 /* CONTADOR */
+/* ========================= */
 
 .counter-section {
-  padding: 80px 20px 40px;
-  z-index: 2;
+  padding: 100px 20px 60px;
+  position: relative;
+  z-index: 10; /* garante que fique acima */
 }
 
 .counter-section h1 {
@@ -44,23 +47,32 @@ body {
   color: #d63384;
 }
 
-/* ALBUM */
+/* ========================= */
+/* ÁLBUM */
+/* ========================= */
 
 .album-section {
-  padding: 60px 0;
+  position: relative;
+  padding: 80px 0;
+  margin-top: 60px;
   overflow: hidden;
+  z-index: 1;
 }
 
 .album-section h2 {
   color: #d63384;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+}
+
+.polaroid-wrapper {
+  width: 100%;
+  overflow: hidden;
 }
 
 .polaroid-track {
   display: flex;
   gap: 40px;
-  width: max-content;
-  animation: scroll 30s linear infinite;
+  animation: scroll 40s linear infinite;
 }
 
 .polaroid {
@@ -93,12 +105,15 @@ body {
   color: #555;
 }
 
+/* Scroll horizontal controlado */
 @keyframes scroll {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
+/* ========================= */
 /* BOTÃO */
+/* ========================= */
 
 .music-btn {
   position: fixed;
@@ -110,6 +125,7 @@ body {
   padding: 12px 20px;
   border-radius: 30px;
   cursor: pointer;
+  z-index: 20;
 }
 
 .music-btn:hover {
