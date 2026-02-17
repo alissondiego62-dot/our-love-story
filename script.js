@@ -32,26 +32,19 @@ setInterval(updateCounter, 1000);
 updateCounter();
 
 /* ========================= */
-/* MÚSICA TURBO */
+/* MÚSICA AUTOPLAY 30s */
 /* ========================= */
 
 const music = document.getElementById("music");
 const musicBtn = document.getElementById("musicBtn");
 
-// Cria toque silencioso para liberar autoplay
-function unlockAutoplay() {
-  const silent = new Audio();
-  silent.src = "data:audio/mp3;base64,//uQxAAAA..."; // mp3 vazio curto (silencioso)
-  silent.play().finally(() => {
-    // Agora podemos tocar a música real
-    music.currentTime = 30;
-    music.play().catch(() => console.log("Música não pode iniciar"));
-  });
-}
-
-// Tenta liberar autoplay assim que a página carrega
-window.addEventListener("load", () => {
-  unlockAutoplay();
+// Áudio silencioso curto (1ms) para desbloquear autoplay
+const silentAudio = new Audio("data:audio/mp3;base64,//uQxAAAAAAD..."); // pode ser mp3 vazio curto
+silentAudio.volume = 0;
+silentAudio.play().finally(() => {
+  // Depois que o autoplay é liberado, toca sua música
+  music.currentTime = 30; // inicia direto aos 30s
+  music.play().catch(() => console.log("Música bloqueada"));
 });
 
 // Botão de pausar/tocar
