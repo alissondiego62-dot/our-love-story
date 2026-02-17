@@ -5,239 +5,260 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Love Story ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
 
 body {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #fff1f5, #ffe4ec);
-    overflow-x: hidden;
-    text-align: center;
+  background: linear-gradient(to bottom, #f7d6e0, #fbe4ec);
+  overflow-x: hidden;
+  text-align: center;
 }
 
-h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #d63384;
+/* ============================= */
+/* CONTADOR */
+/* ============================= */
+
+.counter-section {
+  padding: 80px 20px 40px;
+  position: relative;
+  z-index: 2;
 }
 
-.timer {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
+.counter-section h1 {
+  color: #d63384;
+  margin-bottom: 40px;
+  font-size: 28px;
 }
 
-.card {
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(10px);
-    padding: 25px 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    min-width: 110px;
+.counter {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.number {
-    font-size: 2.8rem;
-    font-weight: bold;
-    color: #d63384;
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 100px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-.label {
-    font-size: 0.8rem;
-    color: #6c757d;
+.box span {
+  font-size: 30px;
+  font-weight: bold;
+  color: #d63384;
 }
 
-.footer {
-    margin-top: 30px;
-    color: #6c757d;
+.box p {
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-/* ===== ALBUM POLAROID ===== */
+/* ============================= */
+/* ALBUM POLAROID */
+/* ============================= */
 
-.album-container {
-    position: fixed;
-    bottom: 80px;
-    width: 100%;
-    overflow: hidden;
+.album-section {
+  padding: 60px 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
-.album-track {
-    display: flex;
-    gap: 40px;
-    animation: scrollAlbum 40s linear infinite;
-    width: max-content;
+.album-section h2 {
+  color: #d63384;
+  margin-bottom: 40px;
+}
+
+.polaroid-track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: scroll 30s linear infinite;
 }
 
 .polaroid {
-    background: white;
-    padding: 15px 15px 40px 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    transform: rotate(-3deg);
-    transition: 0.3s;
+  background: white;
+  padding: 15px 15px 40px;
+  width: 220px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transform: rotate(-3deg);
+  transition: 0.3s;
+  flex-shrink: 0;
 }
 
 .polaroid:nth-child(even) {
-    transform: rotate(3deg);
+  transform: rotate(3deg);
+}
+
+.polaroid:hover {
+  transform: scale(1.05) rotate(0deg);
 }
 
 .polaroid img {
-    width: 180px;
-    height: 220px;
-    object-fit: cover;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
 }
 
-@keyframes scrollAlbum {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+.polaroid p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
 }
 
-/* ===== BOTÃO ===== */
-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #d63384;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 14px;
+@keyframes scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
-/* ===== CORAÇÕES ===== */
-.heart {
-    position: absolute;
-    bottom: -20px;
-    color: rgba(214, 51, 132, 0.25);
-    animation: floatUp linear infinite;
+/* ============================= */
+/* BOTÃO MÚSICA */
+/* ============================= */
+
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #d63384;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-@keyframes floatUp {
-    from { transform: translateY(0); opacity: 0.7; }
-    to { transform: translateY(-110vh); opacity: 0; }
+.music-btn:hover {
+  background: #c21867;
 }
+
 </style>
 </head>
-
 <body>
 
-<h1>Desde o nosso primeiro dia juntos ❤️</h1>
+<!-- ============================= -->
+<!-- CONTADOR -->
+<!-- ============================= -->
 
-<div class="timer">
-    <div class="card"><div class="number" id="days">0</div><div class="label">dias</div></div>
-    <div class="card"><div class="number" id="hours">0</div><div class="label">horas</div></div>
-    <div class="card"><div class="number" id="minutes">0</div><div class="label">minutos</div></div>
-    <div class="card"><div class="number" id="seconds">0</div><div class="label">segundos</div></div>
-</div>
+<section class="counter-section">
+  <h1>Desde o nosso primeiro dia juntos ❤️</h1>
 
-<div class="footer">
-    19 de Janeiro de 2026 💖
-</div>
-
-<!-- ===== ALBUM ===== -->
-<div class="album-container">
-    <div class="album-track">
-        <div class="polaroid"><img src="./foto1.jpg"></div>
-        <div class="polaroid"><img src="./foto2.jpg"></div>
-        <div class="polaroid"><img src="./foto3.jpg"></div>
-        <div class="polaroid"><img src="./foto4.jpg"></div>
-
-        <!-- DUPLICAÇÃO PARA LOOP SUAVE -->
-        <div class="polaroid"><img src="./foto1.jpg"></div>
-        <div class="polaroid"><img src="./foto2.jpg"></div>
-        <div class="polaroid"><img src="./foto3.jpg"></div>
-        <div class="polaroid"><img src="./foto4.jpg"></div>
+  <div class="counter">
+    <div class="box">
+      <span id="days">0</span>
+      <p>Dias</p>
     </div>
-</div>
+    <div class="box">
+      <span id="hours">0</span>
+      <p>Horas</p>
+    </div>
+    <div class="box">
+      <span id="minutes">0</span>
+      <p>Min</p>
+    </div>
+    <div class="box">
+      <span id="seconds">0</span>
+      <p>Seg</p>
+    </div>
+  </div>
+</section>
 
-<!-- ÁUDIO -->
-<audio id="bgMusic" autoplay muted loop preload="auto">
-    <source src="./musica.mp3" type="audio/mpeg">
+<!-- ============================= -->
+<!-- ÁLBUM -->
+<!-- ============================= -->
+
+<section class="album-section">
+  <h2>Nossos Momentos 📸</h2>
+
+  <div class="polaroid-track">
+    <div class="polaroid">
+      <img src="foto1.jpg">
+      <p>Nosso início ❤️</p>
+    </div>
+    <div class="polaroid">
+      <img src="foto2.jpg">
+      <p>Primeiro passeio ✨</p>
+    </div>
+    <div class="polaroid">
+      <img src="foto3.jpg">
+      <p>Momentos únicos 💕</p>
+    </div>
+    <div class="polaroid">
+      <img src="foto4.jpg">
+      <p>Sorrisos 😍</p>
+    </div>
+    <div class="polaroid">
+      <img src="foto5.jpg">
+      <p>Para sempre nós 💖</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= -->
+<!-- AUDIO -->
+<!-- ============================= -->
+
+<audio id="music" autoplay loop>
+  <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
-<button onclick="toggleMusic()" id="musicBtn">
-⏸ Pausar música
-</button>
+<button class="music-btn" onclick="toggleMusic()">⏸ Pausar música</button>
 
 <script>
-// ===== FUSO BOA VISTA =====
-function getBoaVistaTime() {
-    const now = new Date();
-    return new Date(
-        now.toLocaleString("en-US", { timeZone: "America/Boa_Vista" })
-    ).getTime();
+
+/* DATA INICIAL (ajuste para a data de vocês) */
+const startDate = new Date("2024-05-01T00:00:00-04:00"); // Boa Vista RR
+
+function updateCounter() {
+  const now = new Date();
+  const diff = now - startDate;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent = hours;
+  document.getElementById("minutes").textContent = minutes;
+  document.getElementById("seconds").textContent = seconds;
 }
 
-const startDate = new Date("2026-01-19T00:00:00-04:00").getTime();
+setInterval(updateCounter, 1000);
+updateCounter();
 
-// ===== CONTADOR =====
-function updateTimer() {
-    const now = getBoaVistaTime();
-    const diff = now - startDate;
-    if (diff < 0) return;
-
-    document.getElementById("days").textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("hours").textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    document.getElementById("minutes").textContent = Math.floor((diff / (1000 * 60)) % 60);
-    document.getElementById("seconds").textContent = Math.floor((diff / 1000) % 60);
-}
-setInterval(updateTimer, 1000);
-updateTimer();
-
-// ===== CORAÇÕES =====
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 15 + 10) + "px";
-    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 10000);
-}
-setInterval(createHeart, 600);
-
-// ===== AUTOPLAY FORÇADO =====
-const music = document.getElementById("bgMusic");
-const button = document.getElementById("musicBtn");
-const startAt = 30;
+/* MÚSICA */
+const music = document.getElementById("music");
 
 window.addEventListener("load", () => {
-    music.currentTime = startAt;
-    const playPromise = music.play();
-
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
-            setTimeout(() => { music.muted = false; }, 500);
-        }).catch(() => {
-            document.addEventListener("click", () => {
-                music.currentTime = startAt;
-                music.muted = false;
-                music.play();
-            }, { once: true });
-        });
-    }
+  music.currentTime = 30;
+  music.play().catch(() => {
+    document.body.addEventListener("click", () => {
+      music.play();
+    }, { once: true });
+  });
 });
 
 function toggleMusic() {
-    if (music.paused) {
-        music.muted = false;
-        music.play();
-        button.textContent = "⏸ Pausar música";
-    } else {
-        music.pause();
-        button.textContent = "🎵 Tocar música";
-    }
+  if (music.paused) {
+    music.play();
+    document.querySelector(".music-btn").textContent = "⏸ Pausar música";
+  } else {
+    music.pause();
+    document.querySelector(".music-btn").textContent = "▶ Tocar música";
+  }
 }
+
 </script>
 
 </body>
