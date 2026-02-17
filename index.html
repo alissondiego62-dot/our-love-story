@@ -24,6 +24,27 @@ body {
     background: linear-gradient(135deg, #fff1f5, #ffe4ec);
     overflow: hidden;
     animation: fadeIn 2s ease-in-out;
+    position: relative;
+}
+
+/* CORAÇÕES */
+.heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 20px;
+    color: rgba(214, 51, 132, 0.25);
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+    }
+    to {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+    }
 }
 
 h1 {
@@ -32,6 +53,7 @@ h1 {
     margin-bottom: 20px;
     color: #b03060;
     text-align: center;
+    z-index: 2;
 }
 
 .line {
@@ -39,6 +61,7 @@ h1 {
     height: 2px;
     background: #d63384;
     margin-bottom: 40px;
+    z-index: 2;
 }
 
 .timer {
@@ -46,6 +69,7 @@ h1 {
     gap: 25px;
     flex-wrap: wrap;
     justify-content: center;
+    z-index: 2;
 }
 
 .card {
@@ -80,6 +104,7 @@ h1 {
     font-size: 0.95rem;
     color: #6c757d;
     text-align: center;
+    z-index: 2;
 }
 
 .small-text {
@@ -146,6 +171,23 @@ function updateTimer() {
 
 setInterval(updateTimer, 1000);
 updateTimer();
+
+/* GERADOR DE CORAÇÕES */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 10000);
+}
+
+setInterval(createHeart, 600);
 </script>
 
 </body>
