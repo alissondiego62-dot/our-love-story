@@ -8,11 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     height: 100vh;
@@ -25,26 +21,6 @@ body {
     overflow: hidden;
     animation: fadeIn 2s ease-in-out;
     position: relative;
-}
-
-/* CORAÇÕES */
-.heart {
-    position: absolute;
-    bottom: -20px;
-    font-size: 20px;
-    color: rgba(214, 51, 132, 0.25);
-    animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-    from {
-        transform: translateY(0) scale(1);
-        opacity: 0.7;
-    }
-    to {
-        transform: translateY(-110vh) scale(1.5);
-        opacity: 0;
-    }
 }
 
 h1 {
@@ -80,11 +56,6 @@ h1 {
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     text-align: center;
     min-width: 140px;
-    transition: 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
 }
 
 .number {
@@ -107,10 +78,39 @@ h1 {
     z-index: 2;
 }
 
-.small-text {
-    margin-top: 15px;
-    font-size: 0.85rem;
-    opacity: 0.8;
+/* BOTÃO DE MÚSICA */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #d63384;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transition: 0.3s;
+    z-index: 3;
+}
+
+.music-btn:hover {
+    transform: scale(1.05);
+}
+
+/* CORAÇÕES */
+.heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 20px;
+    color: rgba(214, 51, 132, 0.25);
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0) scale(1); opacity: 0.7; }
+    to { transform: translateY(-110vh) scale(1.5); opacity: 0; }
 }
 
 @keyframes fadeIn {
@@ -145,11 +145,15 @@ h1 {
 </div>
 
 <div class="footer-text">
-    19 de janeiro de 2026 — O começo da nossa história.
-    <div class="small-text">
-        E que seja apenas o início de tudo ✨
-    </div>
+    19 de janeiro de 2026
 </div>
+
+<!-- ÁUDIO -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">⏸ Pausar música</button>
 
 <script>
 const startDate = new Date("January 19, 2026 00:00:00").getTime();
@@ -172,7 +176,7 @@ function updateTimer() {
 setInterval(updateTimer, 1000);
 updateTimer();
 
-/* GERADOR DE CORAÇÕES */
+/* CORAÇÕES */
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -182,12 +186,39 @@ function createHeart() {
     heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 10000);
+    setTimeout(() => { heart.remove(); }, 10000);
 }
 
 setInterval(createHeart, 600);
+
+/* MÚSICA AUTOMÁTICA AO CARREGAR */
+window.addEventListener("load", () => {
+    const music = document.getElementById("bgMusic");
+
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            document.body.addEventListener("click", () => {
+                music.play();
+            }, { once: true });
+        });
+    }
+});
+
+/* BOTÃO */
+function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+    const button = document.querySelector(".music-btn");
+
+    if (music.paused) {
+        music.play();
+        button.textContent = "⏸ Pausar música";
+    } else {
+        music.pause();
+        button.textContent = "🎵 Ativar música";
+    }
+}
 </script>
 
 </body>
