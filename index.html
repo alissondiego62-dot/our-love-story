@@ -18,7 +18,7 @@ body {
     align-items: center;
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #fff1f5, #ffe4ec);
-    overflow: hidden;
+    overflow-x: hidden;
     text-align: center;
 }
 
@@ -60,6 +60,46 @@ h1 {
     color: #6c757d;
 }
 
+/* ===== ALBUM POLAROID ===== */
+
+.album-container {
+    position: fixed;
+    bottom: 80px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.album-track {
+    display: flex;
+    gap: 40px;
+    animation: scrollAlbum 40s linear infinite;
+    width: max-content;
+}
+
+.polaroid {
+    background: white;
+    padding: 15px 15px 40px 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transform: rotate(-3deg);
+    transition: 0.3s;
+}
+
+.polaroid:nth-child(even) {
+    transform: rotate(3deg);
+}
+
+.polaroid img {
+    width: 180px;
+    height: 220px;
+    object-fit: cover;
+}
+
+@keyframes scrollAlbum {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* ===== BOTÃO ===== */
 button {
     position: fixed;
     bottom: 20px;
@@ -73,10 +113,7 @@ button {
     font-size: 14px;
 }
 
-button:hover {
-    opacity: 0.9;
-}
-
+/* ===== CORAÇÕES ===== */
 .heart {
     position: absolute;
     bottom: -20px;
@@ -106,7 +143,24 @@ button:hover {
     19 de Janeiro de 2026 💖
 </div>
 
-<audio id="bgMusic" preload="auto" loop>
+<!-- ===== ALBUM ===== -->
+<div class="album-container">
+    <div class="album-track">
+        <div class="polaroid"><img src="./foto1.jpg"></div>
+        <div class="polaroid"><img src="./foto2.jpg"></div>
+        <div class="polaroid"><img src="./foto3.jpg"></div>
+        <div class="polaroid"><img src="./foto4.jpg"></div>
+
+        <!-- DUPLICAÇÃO PARA LOOP SUAVE -->
+        <div class="polaroid"><img src="./foto1.jpg"></div>
+        <div class="polaroid"><img src="./foto2.jpg"></div>
+        <div class="polaroid"><img src="./foto3.jpg"></div>
+        <div class="polaroid"><img src="./foto4.jpg"></div>
+    </div>
+</div>
+
+<!-- ÁUDIO -->
+<audio id="bgMusic" autoplay muted loop preload="auto">
     <source src="./musica.mp3" type="audio/mpeg">
 </audio>
 
@@ -115,9 +169,7 @@ button:hover {
 </button>
 
 <script>
-// ===============================
-// FUSO HORÁRIO FIXO BOA VISTA RR
-// ===============================
+// ===== FUSO BOA VISTA =====
 function getBoaVistaTime() {
     const now = new Date();
     return new Date(
@@ -127,32 +179,21 @@ function getBoaVistaTime() {
 
 const startDate = new Date("2026-01-19T00:00:00-04:00").getTime();
 
-// ===============================
-// CONTADOR
-// ===============================
+// ===== CONTADOR =====
 function updateTimer() {
     const now = getBoaVistaTime();
     const diff = now - startDate;
-
     if (diff < 0) return;
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
+    document.getElementById("days").textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("hours").textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    document.getElementById("minutes").textContent = Math.floor((diff / (1000 * 60)) % 60);
+    document.getElementById("seconds").textContent = Math.floor((diff / 1000) % 60);
 }
-
 setInterval(updateTimer, 1000);
 updateTimer();
 
-// ===============================
-// CORAÇÕES
-// ===============================
+// ===== CORAÇÕES =====
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -165,35 +206,31 @@ function createHeart() {
 }
 setInterval(createHeart, 600);
 
-// ===============================
-// MÚSICA AUTOMÁTICA (30 SEGUNDOS)
-// ===============================
+// ===== AUTOPLAY FORÇADO =====
 const music = document.getElementById("bgMusic");
 const button = document.getElementById("musicBtn");
-const startAt = 30; // começa aos 30 segundos
+const startAt = 30;
 
-function forcePlay() {
+window.addEventListener("load", () => {
     music.currentTime = startAt;
     const playPromise = music.play();
 
     if (playPromise !== undefined) {
-        playPromise.catch(() => {
-            // Se autoplay for bloqueado
+        playPromise.then(() => {
+            setTimeout(() => { music.muted = false; }, 500);
+        }).catch(() => {
             document.addEventListener("click", () => {
                 music.currentTime = startAt;
+                music.muted = false;
                 music.play();
             }, { once: true });
         });
     }
-}
+});
 
-window.addEventListener("load", forcePlay);
-
-// ===============================
-// BOTÃO
-// ===============================
 function toggleMusic() {
     if (music.paused) {
+        music.muted = false;
         music.play();
         button.textContent = "⏸ Pausar música";
     } else {
