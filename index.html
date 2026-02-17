@@ -144,4 +144,71 @@ h1 {
 <div class="line"></div>
 
 <div class="timer">
-    <div class="card"><div class="number" id="days">0</div><div class="label">dias</d
+    <div class="card"><div class="number" id="days">0</div><div class="label">dias</div></div>
+    <div class="card"><div class="number" id="hours">0</div><div class="label">horas</div></div>
+    <div class="card"><div class="number" id="minutes">0</div><div class="label">minutos</div></div>
+    <div class="card"><div class="number" id="seconds">0</div><div class="label">segundos</div></div>
+</div>
+
+<div class="footer-text">
+    19 de Janeiro de 2026 💖
+</div>
+
+<audio id="bgMusic" loop preload="auto">
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵 Ativar música</button>
+
+<script>
+const startDate = new Date(2026, 0, 19, 0, 0, 0).getTime();
+
+function updateTimer() {
+    const now = new Date().getTime();
+    const difference = now - startDate;
+
+    if (difference < 0) return;
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((difference / (1000 * 60)) % 60);
+    const seconds = Math.floor((difference / 1000) % 60);
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 10000);
+}
+
+setInterval(createHeart, 600);
+
+function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+    const button = document.querySelector(".music-btn");
+
+    if (music.paused) {
+        music.play();
+        button.textContent = "⏸ Pausar música";
+    } else {
+        music.pause();
+        button.textContent = "🎵 Ativar música";
+    }
+}
+</script>
+
+</body>
+</html>
