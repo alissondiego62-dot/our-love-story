@@ -1,0 +1,117 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(to bottom, #f7d6e0, #fbe4ec);
+  overflow-x: hidden;
+  text-align: center;
+}
+
+/* CONTADOR */
+
+.counter-section {
+  padding: 80px 20px 40px;
+  z-index: 2;
+}
+
+.counter-section h1 {
+  color: #d63384;
+  margin-bottom: 40px;
+}
+
+.counter {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 100px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.box span {
+  font-size: 30px;
+  font-weight: bold;
+  color: #d63384;
+}
+
+/* ALBUM */
+
+.album-section {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.album-section h2 {
+  color: #d63384;
+  margin-bottom: 40px;
+}
+
+.polaroid-track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
+.polaroid {
+  background: white;
+  padding: 15px 15px 40px;
+  width: 220px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transform: rotate(-3deg);
+  transition: 0.3s;
+  flex-shrink: 0;
+}
+
+.polaroid:nth-child(even) {
+  transform: rotate(3deg);
+}
+
+.polaroid:hover {
+  transform: scale(1.05) rotate(0deg);
+}
+
+.polaroid img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.polaroid p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* BOTÃO */
+
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #d63384;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.music-btn:hover {
+  background: #c21867;
+}
