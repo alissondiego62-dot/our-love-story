@@ -96,38 +96,26 @@ button:hover {
 <h1>Desde o nosso primeiro dia juntos ❤️</h1>
 
 <div class="timer">
-    <div class="card">
-        <div class="number" id="days">0</div>
-        <div class="label">dias</div>
-    </div>
-    <div class="card">
-        <div class="number" id="hours">0</div>
-        <div class="label">horas</div>
-    </div>
-    <div class="card">
-        <div class="number" id="minutes">0</div>
-        <div class="label">minutos</div>
-    </div>
-    <div class="card">
-        <div class="number" id="seconds">0</div>
-        <div class="label">segundos</div>
-    </div>
+    <div class="card"><div class="number" id="days">0</div><div class="label">dias</div></div>
+    <div class="card"><div class="number" id="hours">0</div><div class="label">horas</div></div>
+    <div class="card"><div class="number" id="minutes">0</div><div class="label">minutos</div></div>
+    <div class="card"><div class="number" id="seconds">0</div><div class="label">segundos</div></div>
 </div>
 
 <div class="footer">
     19 de Janeiro de 2026 💖
 </div>
 
-<audio id="bgMusic" loop>
+<audio id="bgMusic" preload="auto" loop>
     <source src="./musica.mp3" type="audio/mpeg">
 </audio>
 
 <button onclick="toggleMusic()" id="musicBtn">
-🎵 Tocar música
+⏸ Pausar música
 </button>
 
 <script>
-// DATA FIXA COM FUSO DO BRASIL
+// ===== CONTADOR =====
 const startDate = new Date("2026-01-19T00:00:00-03:00").getTime();
 
 function updateTimer() {
@@ -150,7 +138,7 @@ function updateTimer() {
 setInterval(updateTimer, 1000);
 updateTimer();
 
-// CORAÇÕES
+// ===== CORAÇÕES =====
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -161,13 +149,31 @@ function createHeart() {
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 10000);
 }
-
 setInterval(createHeart, 600);
 
-// MÚSICA
+// ===== MÚSICA AUTOMÁTICA =====
 const music = document.getElementById("bgMusic");
 const button = document.getElementById("musicBtn");
+const startAt = 30; // começa aos 30 segundos
 
+function forcePlay() {
+    music.currentTime = startAt;
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            // Se o navegador bloquear, toca no primeiro clique
+            document.addEventListener("click", () => {
+                music.currentTime = startAt;
+                music.play();
+            }, { once: true });
+        });
+    }
+}
+
+window.addEventListener("load", forcePlay);
+
+// ===== BOTÃO =====
 function toggleMusic() {
     if (music.paused) {
         music.play();
